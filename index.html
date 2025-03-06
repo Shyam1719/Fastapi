@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Prediction</title>
+</head>
+<body>
+    <h2>Enter a Number for Prediction</h2>
+    <input type="number" id="inputValue">
+    <button onclick="getPrediction()">Predict</button>
+    <p id="result"></p>
+
+    <script>
+/*************  ✨ Codeium Command ⭐  *************/
+        /**
+         * Fetches a prediction from the server with the given input value and displays it
+         * @returns {Promise<void>}
+         */
+/******  7e0b53dd-1b00-4ff9-9e20-0efed80aaf4f  *******/
+        async function getPrediction() {
+            let inputValue = document.getElementById("inputValue").value;
+            
+            let response = await fetch("http://127.0.0.1:8000/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ features: [parseFloat(inputValue)] })
+            });
+
+            let data = await response.json();
+            document.getElementById("result").innerText = "Prediction: " + data.predict;
+        }
+    </script>
+</body>
+</html>
